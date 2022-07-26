@@ -1,5 +1,6 @@
 package com.example.crudexample.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table
+@JsonIgnoreProperties({"hibernateLazyInizializer", "handler"})
 public class User {
 
     @Id

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,5 +61,32 @@ public class UserController {
             Page<User> userPage = Page.empty();
             return  userPage;
         }
+    }
+
+    //READ by id
+    @GetMapping("/{id}")
+    public User getSingleUser(@PathVariable long id){
+        User user = userRepository.getReferenceById(id);
+        return user;
+    }
+
+    //UPDATE for id
+    @PutMapping("/{id}")
+    public User updateSingleUser(@PathVariable long id, @RequestBody User user){
+        user.setId(id);
+        User newUser = userRepository.saveAndFlush(user);
+        return newUser;
+    }
+
+    //DELETE for id
+    @DeleteMapping("/{id}")
+    public void deleteSingleUser(@PathVariable long id){
+        userRepository.deleteById(id);
+    }
+
+    //DELETE multiplo
+    @DeleteMapping("")
+    public void deleteMultiple(@RequestParam() List<Long> ids){
+        userRepository.deleteAllById(ids);
     }
 }
